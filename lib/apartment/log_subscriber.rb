@@ -8,22 +8,22 @@ module Apartment
     # NOTE: for some reason, if the method definition is not here, then the custom debug method is not called
     # rubocop:disable Lint/UselessMethodDefinition
     def sql(event)
-      super(event)
+      super
     end
     # rubocop:enable Lint/UselessMethodDefinition
 
     private
 
-    def debug(progname = nil, &block)
+    def debug(progname = nil, &blk)
       progname = "  #{apartment_log}#{progname}" unless progname.nil?
 
-      super(progname, &block)
+      super
     end
 
     def apartment_log
-      database = color("[#{database_name}] ", ActiveSupport::LogSubscriber::MAGENTA, true)
+      database = color("[#{database_name}] ", ActiveSupport::LogSubscriber::MAGENTA, bold: true)
       schema = current_search_path
-      schema = color("[#{schema.tr('"', '')}] ", ActiveSupport::LogSubscriber::YELLOW, true) unless schema.nil?
+      schema = color("[#{schema.tr('"', '')}] ", ActiveSupport::LogSubscriber::YELLOW, bold: true) unless schema.nil?
       "#{database}#{schema}"
     end
 
